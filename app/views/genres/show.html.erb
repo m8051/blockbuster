@@ -1,0 +1,19 @@
+<h3><%= @genre.name %> Movies</h3>
+<section class="user">
+  <div class="actions">
+    <% if @genre.movies.present? %>
+      <div class="favorite-movies">
+        <% @genre.movies.each do |g| %>
+        <%= link_to image_tag(g.image_file_name), g %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</section>
+
+<% if current_user_admin? %>
+  <section class="admin">
+    <%= link_to "Edit", edit_genre_path(@genre), class: "button" %>
+    <%= link_to "Delete", genre_path(@genre), class: "button", method: :delete, data: {confirm: 'Are you sure?' } %>
+  </section>
+<% end %>

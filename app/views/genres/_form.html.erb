@@ -1,0 +1,6 @@
+<%= form_with(model: genre, local:true) do |g|  %>
+  <%= render "shared/errors", object: genre %>
+  <%= g.label :name %>
+  <%= g.text_field :name %>
+  <%= g.submit %>
+<% end %>
