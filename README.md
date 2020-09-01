@@ -1,2 +1,2 @@
-# blockbuster
+# Blockbuster
 RoR Application
