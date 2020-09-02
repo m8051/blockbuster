@@ -4,7 +4,7 @@
     <% if @genre.movies.present? %>
       <div class="favorite-movies">
         <% @genre.movies.each do |g| %>
-        <%= link_to image_tag(g.image_file_name), g %>
+        <%= link_to image_tag(g.main_image), g %>
         <% end %>
       </div>
     <% end %>
