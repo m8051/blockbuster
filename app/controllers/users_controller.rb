@@ -14,8 +14,7 @@ class UsersController < ApplicationController
     @users = User.not_admins
   end
   def show
-    # @user = User.find(params[:id])
-    @user = User.find_by!(username: params[:id])
+    @user = User.find(params[:id])
     @reviews = @user.reviews
     @favorite_movies = @user.favorite_movies
   end
@@ -79,10 +78,6 @@ class UsersController < ApplicationController
       # unless current_user == @user
       #   redirect_to root_url
       # end
-    end
-
-    def username
-      @user = Movie.find_by!(username: params[:id])
     end
 
 end

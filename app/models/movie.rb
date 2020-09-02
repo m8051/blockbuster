@@ -3,9 +3,6 @@ class Movie < ApplicationRecord
   # Callbacks (Chapter 40)
   before_save :set_slug
 
-  # Active Storage (Chapter 41)
-  has_one_attached :main_image
-
   # Declaring the has_many Association with the review Model but in the plural 
   # form of the child and also the database name which is in plural
   #
@@ -37,14 +34,11 @@ class Movie < ApplicationRecord
   validates :released_on, :director, :duration, presence: true
   validates :description, length: { maximum: 1000 }
   validates :total_gross, numericality: { greater_than_or_equal_to: 0 }
-  
-  validate :acceptable_image
 
-  # No longer required, as it is replaced by Active Storage
-  # validates :image_file_name, format: {
-  #   with: /\w+\.(jpg|png)\z/i,
-  #   message: "must be a JPG or PNG image"
-  # }
+  validates :image_file_name, format: {
+    with: /\w+\.(jpg|png)\z/i,
+    message: "must be a JPG or PNG image"
+  }
 
   # Ratings is a constang in Ruby
   RATINGS = %w(G PG PG-13 R NC-17)
@@ -105,20 +99,6 @@ class Movie < ApplicationRecord
 
     def set_slug
       self.slug = title.parameterize
-    end
-
-    def acceptable_image
-      return unless main_image.attached?
-
-      unless main_image.blob.byte_size <= 1.megabyte
-        errors.add(:main_image, "is too big")
-      end
-
-      acceptable_types = ["image/jpeg", "image/png"]
-      unless acceptable_types.include?(main_image.content_type)
-        errors.add(:main_image, "must be a JPEG or PNG")
-      end
-
     end
 
 end
